@@ -7,7 +7,7 @@ class Login {
     }
     
     public function authenticate($username, $password) {
-        $query = "SELECT * FROM empresas WHERE username = :username AND password = :password";
+        $query = "SELECT * FROM empresas WHERE username = :username AND password = :password AND aprobado=1";
         $stmt = $this->db->prepare($query);
         
         $stmt->bindParam(':username', $username);

@@ -13,7 +13,7 @@
             header("Location: dashboard.php");
             exit();
         } else {
-            echo "<p class='error'>Usuario o contraseña incorrectos</p>";
+            $error = "Usuario o contraseña incorrectos.";
         }
     }
 ?>
@@ -27,10 +27,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
 </head>
 <body>
-<div class="container d-flex align-items-center justify-content-center">
+<div class="container d-flex align-items-center justify-content-center mt-5">
         <div class="mb-3">
             <h2>Iniciar Sesión</h2>
         <div>
+        <?php if (isset($error)):?>
+        <div class="alert alert-danger"><?php echo "<p>$error</p>"; ?></div>
+        <?php endif;?>
         <form method="POST" action="login.php">
                 <label class="form-label" for="username">Usuario:</label>
                 <input class="form-control" type="text" id="username" name="username" required>

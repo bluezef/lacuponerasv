@@ -1,5 +1,5 @@
 <?php
-include_once '../../classes/Database.php';
+require_once '../../classes/Database.php';
 include_once '../../classes/Solicitudes.php';
 
 session_start();
@@ -12,8 +12,20 @@ if (!isset($_SESSION['admin'])) {
 $database = new Database();
 $db = $database->connect();
 
-$entrada = new Solicitudes($db);
+$entrada = new Solicitud($db);
 $result = $entrada->read();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $database = new Database();
+    $db = $database->connect();
+
+    $entrada = new Solicitud($db);
+    if($entrada->aprobar($_POST['id'])){
+        $success = "Solicitud aprobada con éxito";
+    } else{
+        $error = "Ocurrio un error al aprobar la solicitud";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -27,9 +39,14 @@ $result = $entrada->read();
 <body>
     <div class="container mt-5">
         <div class="d-flex justify-content-between mb-3">
-            <h1>Solicitudes Registradas></h1>
-            
+            <h1>Solicitudes Registradas</h1>
         </div>
+        <?php if (isset($success)): ?>
+            <div class="alert alert-success"><?php echo $success; ?></div>
+        <?php endif; ?>
+        <?php if (isset($error)): ?>
+            <div class="alert alert-danger"><?php echo $error; ?></div>
+        <?php endif; ?>
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
@@ -52,7 +69,7 @@ $result = $entrada->read();
                             <td><?php echo $row->direccion; ?></td>
                             <td><?php echo $row->telefono; ?></td>
                             <td><?php echo $row->correo_electronico; ?></td>
-                            <td><button class="btn btn-warning btn-sm">Aprobar</button></td>
+                            <td><form method="POST"><button class="btn btn-warning btn-sm" id="id" name="id" value=<?php echo $row->id; ?>>Aprobar</button></form></td>
                         </tr>
                     <?php endwhile; ?>
                 <?php }else{  ?>
@@ -62,10 +79,6 @@ $result = $entrada->read();
                 <?php } ?>
             </tbody>
         </table>
-        <div class="text-center">
-            <a href="registrar_entrada.php" class="btn btn-primary">Agregar Nueva Entrada</a>
-            <a href="dashboard.php" class="btn btn-secondary">Volver al Menú</a>
-        </div>
     </div>
 </body>
 </html>

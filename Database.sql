@@ -11,12 +11,12 @@ CREATE TABLE empresas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    rol VARCHAR(10) NOT NULL,
     nombre_empresa VARCHAR(255),
     nit_empresa VARCHAR(255),
     direccion VARCHAR(255),
     telefono VARCHAR(8),
-    correo_electronico VARCHAR(255)
+    correo_electronico VARCHAR(255),
+    aprobado BOOLEAN NOT NULL
 );
 
 CREATE TABLE clientes (
@@ -28,18 +28,6 @@ CREATE TABLE clientes (
     apellido_cliente VARCHAR(255) NOT NULL,
     DUI VARCHAR(10) NOT NULL,
     fecha_nacimiento DATE NOT NULL
-);
-
-CREATE TABLE solicitudes (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    nombre_empresa VARCHAR(255) NOT NULL,
-    nit_empresa VARCHAR(255) NOT NULL,
-    direccion VARCHAR(255) NOT NULL,
-    telefono VARCHAR(8) NOT NULL,
-    correo_electronico VARCHAR(255) NOT NULL,
-    aprobado BOOLEAN NOT NULL
 );
 
 CREATE TABLE ofertas (

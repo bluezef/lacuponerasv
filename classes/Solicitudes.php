@@ -1,7 +1,7 @@
 <?php
-class Signup {
+class Solicitud {
     private $conn;
-    private $table = 'solicitudes';
+    private $table = 'empresas';
 
     public $id;
     public $nombre_empresa;
@@ -15,7 +15,7 @@ class Signup {
     }
 
     public function create(){
-        $query = 'INSERT INTO ' . $this->table . ' (nombre_empresa, nit_empresa, direccion, telefono, correo_electronico, username, password, aprobado) VALUES (:nombre_empresa, :nit_empresa, :direccion, :telefono, :correo_electronico, :username, :password, 0)';
+        $query = 'INSERT INTO ' . $this->table . ' (nombre_empresa, nit_empresa, direccion, telefono, correo_electronico, username, password, aprobado) VALUES (:nombre_empresa, :nit_empresa, :direccion, :telefono, :correo_electronico, :username, SHA1(:password), 0)';
         
         $stmt = $this->conn->prepare($query);
 
@@ -47,8 +47,22 @@ class Signup {
         return false;
     }
 
+    public function aprobar($id){
+        $query = 'UPDATE ' . $this->table . ' SET aprobado = 1 WHERE id = '. $id;
+        
+        $stmt = $this->conn->prepare($query);
+
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        // Si algo sale mal, imprimir error
+        printf("Error: %s.\n", $stmt->error);
+        return false;
+    }
+
     public function read() {
-        $query = 'SELECT nombre_empresa, nit_empresa, direccion, telefono, correo_electronico FROM ' . $this->table;
+        $query = 'SELECT id, nombre_empresa, nit_empresa, direccion, telefono, correo_electronico FROM ' . $this->table . ' WHERE aprobado = 0';
 
         $stmt = $this->conn->prepare($query);
 

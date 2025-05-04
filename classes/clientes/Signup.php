@@ -1,7 +1,7 @@
 <?php
 class Signup {
     private $conn;
-    private $table = 'solicitudes';
+    private $table = 'clientes';
 
     public $id;
     public $nombre_completo;
@@ -14,7 +14,7 @@ class Signup {
     }
 
     public function create(){
-        $query = 'INSERT INTO ' . $this->table . ' (username, password, correo_electronico, nombre_cliente, apellido_cliente, DUI, fecha_nacimiento) VALUES (:username, :password, :correo_electronico, :nombre_cliente, :apellido_cliente, :DUI, :fecha_nacimiento)';
+        $query = 'INSERT INTO ' . $this->table . ' (username, password, correo_electronico, nombre_cliente, apellido_cliente, DUI, fecha_nacimiento) VALUES (:username, SHA1(:password), :correo_electronico, :nombre_cliente, :apellido_cliente, :DUI, :fecha_nacimiento)';
         
         $stmt = $this->conn->prepare($query);
 
