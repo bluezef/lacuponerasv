@@ -7,7 +7,7 @@ class Login {
     }
     
     public function authenticate($username, $password) {
-        $query = "SELECT * FROM usuarios WHERE username = :username AND password = :password";
+        $query = "SELECT * FROM empresas WHERE username = :username AND password = :password";
         $stmt = $this->db->prepare($query);
         
         $stmt->bindParam(':username', $username);
@@ -16,7 +16,7 @@ class Login {
         $stmt->execute();
         
         if($stmt->rowCount() == 1) {
-            $_SESSION['loggedin'] = true;
+            $_SESSION['empresa'] = true;
             $_SESSION['username'] = $username;
             return true;
             print_r("Logged in");

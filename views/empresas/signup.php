@@ -1,6 +1,6 @@
 <?php
-include_once 'classes/Database.php';
-include_once 'classes/Entrada.php';
+include_once '../../classes/Database.php';
+include_once '../../classes/Solicitudes.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $database = new Database();

@@ -1,6 +1,6 @@
 <?php
-include_once 'classes/Database.php';
-include_once 'classes/Signup.php';
+include_once '../../classes/Database.php';
+include_once '../../classes/clientes/Signup.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $database = new Database();
@@ -34,42 +34,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <div class="container d-flex align-items-center justify-content-center">
         <div class="mb-3">
-            <h2>Formulario de Registro para Empresas</h2>
+            <h2>Registro de Clientes</h2>
         <div>
         <form method="POST" action="signup.php">
             <div class="mb-3">
-                <label class="form-label" for="nombre_empresa">Nombre de la Empresa:</label>
-                <input class="form-control" type="text" id="nombre_empresa" name="nombre_empresa" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="nit_empresa">NIT:</label>
-                <input class="form-control" type="text" id="nit_empresa" name="nit_empresa" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="direccion">Direccion:</label>
-                <input class="form-control" type="text" id="direccion" name="direccion" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="telefono">Telefono:</label>
-                <input class="form-control" type="text" id="telefono" name="telefono" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="correo_electronico">Correo Electronico:</label>
-                <input class="form-control" type="text" id="correo_electronico" name="correo_electronico" required>
-            </div>
-            <div class="mb-3">
                 <label class="form-label" for="username">Usuario:</label>
                 <input class="form-control" type="text" id="username" name="username" required>
-            </div>
+            </div>  
             <div class="mb-3">
                 <label class="form-label" for="password">Contraseña:</label>
                 <input class="form-control" type="password" id="password" name="password" required>
-            </div>   
+            </div>  
+            <div class="mb-3">
+            <div class="mb-3">
+                <label class="form-label" for="correo_electronico">Correo Electrónico:</label>
+                <input class="form-control" type="text" id="correo_electronico" name="correo_electronico" required>
+            </div>  
+            <div class="mb-3">
+                <label class="form-label" for="nombre_cliente">Nombres:</label>
+                <input class="form-control" type="text" id="nombre_cliente" name="nombre_cliente" required>
+            </div>  
+            <div class="mb-3">
+                <label class="form-label" for="apellido_cliente">Apellidos:</label>
+                <input class="form-control" type="text" id="apellido_cliente" name="apellido_cliente" required>
+            </div> 
+            <div class="mb-3">
+                <label class="form-label" for="DUI">DUI:</label>
+                <input class="form-control" type="text" id="DUI" name="DUI" required>
+            </div> 
+            <div class="mb-3">
+                <label class="form-label" for="fecha_nacimiento">Fecha de Nacimiento:</label>
+                <input class="form-control" type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
+            </div> 
             <button class="btn btn-primary" type="submit">Registrarse</button>
         </form>
         
     <div><p>¿Ya tienes una cuenta? <a href="login.php">Inicia sesión aquí</a></p></div>
-    <div><p>¿Eres un usuario natural y no una empresa? <a href="signupclientes.php">Regístrate aquí</a></p></div>
+    <div><p>¿Necesitas una cuenta de empresa? <a href="../empresas/signup.php">Regístrate aquí</a></p></div>
     </div>
 </div>
 </body>

@@ -1,7 +1,13 @@
 CREATE DATABASE IF NOT EXISTS cuponera;
 USE cuponera;
 
-CREATE TABLE usuarios (
+CREATE TABLE administradores(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE empresas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
@@ -48,7 +54,7 @@ CREATE TABLE ofertas (
     descripcion VARCHAR(255) NOT NULL,
     estado BOOLEAN NOT NULL,
     usuario VARCHAR(50) NOT NULL,
-    FOREIGN KEY (usuario) REFERENCES usuarios(username)
+    FOREIGN KEY (usuario) REFERENCES empresas(username)
 );
 
 CREATE TABLE compras (
@@ -63,4 +69,4 @@ CREATE TABLE compras (
 );
 
 -- Usuario de prueba
-INSERT INTO usuarios (username, password, rol) VALUES ('admin', SHA1('admin123'), 'admin');
+INSERT INTO administradores (username, password) VALUES ('admin', SHA1('admin123'));

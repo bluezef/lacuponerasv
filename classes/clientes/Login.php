@@ -1,5 +1,5 @@
 <?php
-class User {
+class Login {
     private $db;
     
     public function __construct($db) {
@@ -7,7 +7,7 @@ class User {
     }
     
     public function authenticate($username, $password) {
-        $query = "SELECT * FROM usuarios WHERE username = :username AND password = :password";
+        $query = "SELECT * FROM clientes WHERE username = :username AND password = :password";
         $stmt = $this->db->prepare($query);
         
         $stmt->bindParam(':username', $username);
@@ -16,7 +16,7 @@ class User {
         $stmt->execute();
         
         if($stmt->rowCount() == 1) {
-            $_SESSION['loggedin'] = true;
+            $_SESSION['cliente'] = true;
             $_SESSION['username'] = $username;
             return true;
             print_r("Logged in");

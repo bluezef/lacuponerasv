@@ -47,7 +47,7 @@ class Signup {
         return false;
     }
 
-    public function read($username) {
+    public function read() {
         $query = 'SELECT nombre_empresa, nit_empresa, direccion, telefono, correo_electronico FROM ' . $this->table;
 
         $stmt = $this->conn->prepare($query);
