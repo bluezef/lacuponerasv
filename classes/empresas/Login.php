@@ -27,7 +27,7 @@ class Login {
     }
     
     public function recover($username){
-        $query = "SELECT correo_electronico FROM empresas WHERE username = :username";
+        $query = "SELECT correo_electronico FROM empresas WHERE username = " . $username;
 
         $stmt = $this->conn->prepare($query);
 

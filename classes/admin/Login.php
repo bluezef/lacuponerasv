@@ -27,7 +27,7 @@ class Login {
     }
 
     public function recover($username){
-        $query = "SELECT username FROM administradores WHERE username = :username";
+        $query = "SELECT username FROM administradores WHERE username =  " . $username;
 
         $stmt = $this->conn->prepare($query);
 
