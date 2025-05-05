@@ -33,7 +33,9 @@ class Login {
 
         $stmt->execute();
 
-        return $stmt;
+        if ($stmt->execute()) {
+            return true;
+        }
     }
     
     public function logout() {
