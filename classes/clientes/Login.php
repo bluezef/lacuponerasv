@@ -26,15 +26,17 @@ class Login {
         }
     }
 
-    public function recover($username){
-        $query = "SELECT correo_electronico FROM clientes WHERE username = " . $username;
-
-        $stmt = $this->conn->prepare($query);
-
+    public function recover($username) {
+        $query = "SELECT * FROM clientes WHERE username = :username";
+        $stmt = $this->db->prepare($query);
+        
+        $stmt->bindParam(':username', $username);
+        
         $stmt->execute();
-
+        
         if($stmt->rowCount() == 1) {
             return true;
+            print_r("Logged in");
         } else{    
             return false;
             print_r("Error");

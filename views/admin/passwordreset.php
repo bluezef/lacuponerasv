@@ -12,7 +12,7 @@
         if($login->recover($_POST['username'])) {
             $success = "Le hemos enviado un enlace al correo asociado a su cuenta.";
         } else {
-            $error = "Usuario o contraseña incorrectos.";
+            $error = "No pudimos encontrar una cuenta con ese nombre de usuario.";
         }
     }
 ?>
