@@ -35,6 +35,7 @@
         <div class="alert alert-danger"><?php echo "<p>$error</p>"; ?></div>
         <?php endif;?>
         <form method="POST" action="login.php">
+            <div class="mb-3">
                 <label class="form-label" for="username">Usuario:</label>
                 <input class="form-control" type="text" id="username" name="username" required>
             </div>

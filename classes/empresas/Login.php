@@ -33,8 +33,11 @@ class Login {
 
         $stmt->execute();
 
-        if ($stmt->execute()) {
+        if($stmt->rowCount() == 1) {
             return true;
+        } else{    
+            return false;
+            print_r("Error");
         }
     }
     

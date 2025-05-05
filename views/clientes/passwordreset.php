@@ -31,19 +31,20 @@
             <h2>Recuperar Contraseña Clientes</h2>
         <div> 
         <div class="mb-3">
-            <p>Ingrese su nombre de usuario para recuperar la contraseña</>
+            <p>Ingrese su nombre de usuario para recuperar la contraseña</p>
         <div>
-        <?php if (isset($error)):?>
+        <?php if (isset($success)):?>
         <div class="alert alert-success"><?php echo "<p>$success</p>"; ?></div>
         <?php endif;?>
         <?php if (isset($error)):?>
         <div class="alert alert-danger"><?php echo "<p>$error</p>"; ?></div>
         <?php endif;?>
         <form method="POST" action="passwordreset.php">
+            <div class="mb-3">
                 <label class="form-label" for="username">Usuario:</label>
                 <input class="form-control" type="text" id="username" name="username" required>
             </div>
-            <button class="btn btn-primary" type="submit">Iniciar Sesión</button>
+            <button class="btn btn-primary" type="submit">Recuperar Contraseña</button>
         </form>
         <div><p><a href="login.php">¿Recordaste tu contraseña?</a></p></div>
         </div>
