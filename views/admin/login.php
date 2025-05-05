@@ -13,7 +13,7 @@
             header("Location: menu.php");
             exit();
         } else {
-            echo "<p class='error'>Usuario o contraseña incorrectos</p>";
+            $error = "Usuario o contraseña incorrectos.";
         }
     }
 ?>
@@ -29,8 +29,11 @@
 <body>
 <div class="container d-flex align-items-center justify-content-center mt-5">
         <div class="mb-3">
-            <h2>Iniciar Sesión</h2>
-        <div>
+            <h2>Inicio de Sesión de Administradores</h2>
+        <div>  
+        <?php if (isset($error)):?>
+        <div class="alert alert-danger"><?php echo "<p>$error</p>"; ?></div>
+        <?php endif;?>
         <form method="POST" action="login.php">
                 <label class="form-label" for="username">Usuario:</label>
                 <input class="form-control" type="text" id="username" name="username" required>
@@ -41,6 +44,8 @@
             </div>   
             <button class="btn btn-primary" type="submit">Iniciar Sesión</button>
         </form>
+        <div><p>¿Eres un cliente? <a href="../clientes/login.php">Inicia sesión aquí</a></p></div>
+        <div><p>¿Eres parte de una empresa? <a href="../empresas/login.php">Inicia sesión aquí</a></p></div>
         </div>
 </div>
 </body>

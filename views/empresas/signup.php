@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: login.php");
         exit();
     } else {
-        $error = "Hubo un problema al crear la entrada.";
+        $error = "Hubo un problema al crear la solicitud.";
     }
 }
 ?>
@@ -48,20 +48,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <input class="form-control" type="text" id="nombre_empresa" name="nombre_empresa" required>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="nit_empresa">NIT:</label>
-                <input class="form-control" type="text" id="nit_empresa" name="nit_empresa" required>
+                <label class="form-label" for="nit_empresa">NIT (sin guión):</label>
+                <input class="form-control" type="text" id="nit_empresa" name="nit_empresa" pattern="[0-9]{14}" title="1231234561231" required>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="direccion">Direccion:</label>
+                <label class="form-label" for="direccion">Dirección:</label>
                 <input class="form-control" type="text" id="direccion" name="direccion" required>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="telefono">Telefono:</label>
-                <input class="form-control" type="text" id="telefono" name="telefono" required>
+                <label class="form-label" for="telefono">Número de Teléfono (sin guión):</label>
+                <input class="form-control" type="text" id="telefono" name="telefono" pattern="[0-9]{8}" title="12345678" required>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="correo_electronico">Correo Electronico:</label>
-                <input class="form-control" type="text" id="correo_electronico" name="correo_electronico" required>
+                <label class="form-label" for="correo_electronico">Correo Electrónico:</label>
+                <input class="form-control" type="text" id="correo_electronico" name="correo_electronico" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" title="ejemplo@email.com" required>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="username">Usuario:</label>
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </form>
         
     <div><p>¿Ya tienes una cuenta? <a href="login.php">Inicia sesión aquí</a></p></div>
-    <div><p>¿Eres un usuario natural y no una empresa? <a href="signupclientes.php">Regístrate aquí</a></p></div>
+    <div><p>¿Eres un usuario natural y no una empresa? <a href="../clientes/signup.php">Regístrate aquí</a></p></div>
     </div>
 </div>
 </body>

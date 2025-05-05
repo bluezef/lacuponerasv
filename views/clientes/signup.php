@@ -7,21 +7,27 @@ session_start();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $database = new Database();
     $db = $database->connect(); 
-    $signup = new Signup($db);
-    $signup->nombre_cliente = $_POST['nombre_cliente'];
-    $signup->correo_electronico = $_POST['correo_electronico'];
-    $signup->apellido_cliente = $_POST['apellido_cliente'];
-    $signup->DUI = $_POST['DUI'];
-    $signup->correo_electronico = $_POST['correo_electronico'];
-    $signup->fecha_nacimiento = $_POST['fecha_nacimiento'];
-    $signup->username = $_POST['username'];
-    $signup->password = $_POST['password'];
-
-    if ($signup->create()) {
-        header("Location: login.php");
-        exit();
-    } else {
-        $error = "Hubo un problema al crear la entrada.";
+    $fechadenacimiento = date_create($_POST['fecha_nacimiento']);
+    $hoy = date_create("now");
+    if(date_diff($fechadenacimiento,$hoy)->format('%y')>=18){
+        $signup = new Signup($db);
+        $signup->nombre_cliente = $_POST['nombre_cliente'];
+        $signup->correo_electronico = $_POST['correo_electronico'];
+        $signup->apellido_cliente = $_POST['apellido_cliente'];
+        $signup->DUI = $_POST['DUI'];
+        $signup->correo_electronico = $_POST['correo_electronico'];
+        $signup->fecha_nacimiento = $_POST['fecha_nacimiento'];
+        $signup->username = $_POST['username'];
+        $signup->password = $_POST['password'];
+        if ($signup->create()) {
+            header("Location: login.php");
+            exit();
+        } else {
+            $error = "Hubo un problema al crear el usuario.";
+        }
+    }
+    else{
+        $error = "Debes ser mayor a 18 años para registrarte.";
     }
 }
 ?>
@@ -39,6 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="mb-3">
             <h2>Registro de Clientes</h2>
         <div>
+        <?php if (isset($error)): ?>
+            <div class="alert alert-danger"><?php echo $error; ?></div>
+        <?php endif; ?>
         <form method="POST" action="signup.php">
             <div class="mb-3">
                 <label class="form-label" for="username">Usuario:</label>
@@ -51,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="mb-3">
             <div class="mb-3">
                 <label class="form-label" for="correo_electronico">Correo Electrónico:</label>
-                <input class="form-control" type="text" id="correo_electronico" name="correo_electronico" required>
+                <input class="form-control" type="text" id="correo_electronico" name="correo_electronico" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" title="ejemplo@email.com" required>
             </div>  
             <div class="mb-3">
                 <label class="form-label" for="nombre_cliente">Nombres:</label>
@@ -62,8 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <input class="form-control" type="text" id="apellido_cliente" name="apellido_cliente" required>
             </div> 
             <div class="mb-3">
-                <label class="form-label" for="DUI">DUI:</label>
-                <input class="form-control" type="text" id="DUI" name="DUI" required>
+                <label class="form-label" for="DUI">DUI (sin guión):</label>
+                <input class="form-control" type="text" id="DUI" name="DUI" pattern="[0-9]{9}" title="123456789" required>
             </div> 
             <div class="mb-3">
                 <label class="form-label" for="fecha_nacimiento">Fecha de Nacimiento:</label>

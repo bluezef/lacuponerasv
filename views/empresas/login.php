@@ -10,7 +10,7 @@
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $login = new Login($db);
         if($login->authenticate($_POST['username'], $_POST['password'])) {
-            header("Location: dashboard.php");
+            header("Location: menu.php");
             exit();
         } else {
             $error = "Usuario o contraseña incorrectos.";
@@ -29,7 +29,7 @@
 <body>
 <div class="container d-flex align-items-center justify-content-center mt-5">
         <div class="mb-3">
-            <h2>Iniciar Sesión</h2>
+            <h2>Inicio de Sesión de Empresas</h2>
         <div>
         <?php if (isset($error)):?>
         <div class="alert alert-danger"><?php echo "<p>$error</p>"; ?></div>
