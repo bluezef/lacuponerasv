@@ -25,6 +25,16 @@ class Login {
             print_r("Error");
         }
     }
+
+    public function recover($username){
+        $query = "SELECT correo_electronico FROM clientes WHERE username = :username";
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->execute();
+
+        return $stmt;
+    }
     
     public function logout() {
         session_destroy();

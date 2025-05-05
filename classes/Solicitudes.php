@@ -61,6 +61,20 @@ class Solicitud {
         return false;
     }
 
+    public function rechazar($id){
+        $query = 'DELETE FROM ' . $this->table . ' WHERE id = '. $id;
+        
+        $stmt = $this->conn->prepare($query);
+
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        // Si algo sale mal, imprimir error
+        printf("Error: %s.\n", $stmt->error);
+        return false;
+    }
+
     public function read() {
         $query = 'SELECT id, nombre_empresa, nit_empresa, direccion, telefono, correo_electronico FROM ' . $this->table . ' WHERE aprobado = 0';
 

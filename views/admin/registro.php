@@ -2,7 +2,7 @@
 include_once '../../classes/Database.php';
 include_once '../../classes/admin/Signup.php';
 
-
+session_start();
 
 if(!isset($_SESSION['admin'])) {
     header("Location: login.php");
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: menu.php");
         exit();
     } else {
-        $error = "Hubo un problema al crear la entrada.";
+        $error = "Hubo un problema al crear el nuevo administrador.";
     }
 }
 ?>
@@ -35,8 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>La Cuponera SV - Registro de Empresas</title>
-    <link rel="icon" type="image/x-icon" href="assets/cuponera.png">
+    <link rel="icon" type="image/x-icon" href="../../assets/cuponera.png">
+    <title>La Cuponera SV - Registro de Administradores</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
 </head>
 <body>
@@ -44,6 +44,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="mb-3">
             <h2>Registro de Administradores</h2>
         <div>
+        <?php if (isset($error)):?>
+        <div class="alert alert-danger"><?php echo "<p>$error</p>"; ?></div>
+        <?php endif;?>
         <form method="POST" action="signup.php">
             <div class="mb-3">
                 <label class="form-label" for="username">Usuario:</label>
@@ -53,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label class="form-label" for="password">Contraseña:</label>
                 <input class="form-control" type="password" id="password" name="password" required>
             </div>  
-            <button class="btn btn-primary" type="submit">Registrarse</button>
+            <button class="btn btn-primary" type="submit">Registrar Nuevo Administrador</button>
         </form>
         </div>
 </div>

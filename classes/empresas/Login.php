@@ -26,6 +26,16 @@ class Login {
         }
     }
     
+    public function recover($username){
+        $query = "SELECT correo_electronico FROM empresas WHERE username = :username";
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->execute();
+
+        return $stmt;
+    }
+    
     public function logout() {
         session_destroy();
         header("Location: login.php");

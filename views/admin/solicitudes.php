@@ -18,12 +18,22 @@ $result = $entrada->read();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $database = new Database();
     $db = $database->connect();
-
     $entrada = new Solicitud($db);
-    if($entrada->aprobar($_POST['id'])){
-        $success = "Solicitud aprobada con éxito";
-    } else{
-        $error = "Ocurrio un error al aprobar la solicitud";
+
+    if(isset($_POST['aprobar'])){
+        if($entrada->aprobar($_POST['aprobar'])){
+            $success = "Solicitud aprobada con éxito";
+        } else{
+            $error = "Ocurrio un error al aprobar la solicitud";
+        }
+    }
+
+    if(isset($_POST['rechazar'])){
+        if($entrada->rechazar($_POST['rechazar'])){
+            $success = "Solicitud rechazada con éxito";
+        } else{
+            $error = "Ocurrio un error al rechazar la solicitud";
+        }
     }
 }
 ?>
@@ -32,8 +42,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../../assets/cuponera.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Productos</title>
+    <title>La Cuponera SV - Solicitudes de Registro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -56,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <th>Direccion</th>
                     <th>Teléfono</th>
                     <th>Correo Electrónico</th>
-                    <th>Aprobar solicitud</th>
+                    <th>Aprobar/Rechazar Solicitud</th>
                 </tr>
             </thead>
             <tbody>
@@ -69,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <td><?php echo $row->direccion; ?></td>
                             <td><?php echo $row->telefono; ?></td>
                             <td><?php echo $row->correo_electronico; ?></td>
-                            <td><form method="POST"><button class="btn btn-warning btn-sm" id="id" name="id" value=<?php echo $row->id; ?>>Aprobar</button></form></td>
+                            <td class="text-center"><form method="POST"><button class="btn btn-success btn-sm" id="aprobar" name="aprobar" value=<?php echo $row->id; ?>>Aprobar</button><button class="btn btn-danger btn-sm" id="rechazar" name="rechazar" value=<?php echo $row->id; ?>>Rechazar</button></form></td>
                         </tr>
                     <?php endwhile; ?>
                 <?php }else{  ?>

@@ -46,6 +46,7 @@
         </form>
         <div><p>¿Eres un cliente? <a href="../clientes/login.php">Inicia sesión aquí</a></p></div>
         <div><p>¿Eres parte de una empresa? <a href="../empresas/login.php">Inicia sesión aquí</a></p></div>
+        <div><p><a href="passwordreset.php">¿Olvidaste tu contraseña?</a></p></div>
         </div>
 </div>
 </body>

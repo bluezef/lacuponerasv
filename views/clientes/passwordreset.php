@@ -1,6 +1,6 @@
 <?php
     require_once '../../classes/Database.php';
-    require_once '../../classes/admin/Login.php';
+    require_once '../../classes/clientes/Login.php';
 
     session_start();
 
@@ -21,14 +21,14 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>La Cuponera SV - Password Reset Admin</title>
+    <title>La Cuponera SV - Password Reset Clientes</title>
     <link rel="icon" type="image/x-icon" href="../../assets/cuponera.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
 </head>
 <body>
 <div class="container d-flex align-items-center justify-content-center mt-5">
         <div class="mb-3">
-            <h2>Recuperar Contraseña</h2>
+            <h2>Recuperar Contraseña Clientes</h2>
         <div> 
         <div class="mb-3">
             <p>Ingrese su nombre de usuario para recuperar la contraseña</>
