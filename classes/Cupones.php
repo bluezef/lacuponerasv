@@ -1,14 +1,17 @@
 <?php
-class Solicitud {
+class Cupon {
     private $conn;
-    private $table = 'empresas';
+    private $table = 'ofertas';
 
     public $id;
-    public $nombre_empresa;
-    public $nit_empresa;
-    public $direccion;
-    public $telefono;
-    public $correo_electronico;
+    public $titulo;
+    public $precio_regular;
+    public $precio_oferta;
+    public $fecha_inicio;
+    public $fecha_fin;
+    public $fecha_canje;
+    public $cantidad;
+    public $descripcion;
 
     public function __construct($db) {
         $this->conn = $db;
@@ -20,13 +23,14 @@ class Solicitud {
         $stmt = $this->conn->prepare($query);
 
         // Limpiar los datos
-        $this->nombre_empresa = htmlspecialchars(strip_tags($this->nombre_empresa));
-        $this->nit_empresa = htmlspecialchars(strip_tags($this->nit_empresa));
-        $this->direccion = htmlspecialchars(strip_tags($this->direccion));
-        $this->telefono = htmlspecialchars(strip_tags($this->telefono));
-        $this->correo_electronico = htmlspecialchars(strip_tags($this->correo_electronico));
-        $this->username = htmlspecialchars(strip_tags($this->username));        
-        $this->password = htmlspecialchars(strip_tags($this->password));
+        $this->titulo = htmlspecialchars(strip_tags($this->titulo));
+        $this->precio_regular = htmlspecialchars(strip_tags($this->precio_regular));
+        $this->precio_oferta = htmlspecialchars(strip_tags($this->precio_oferta));
+        $this->fecha_inicio = htmlspecialchars(strip_tags($this->fecha_inicio));
+        $this->fecha_fin = htmlspecialchars(strip_tags($this->fecha_fin));
+        $this->fecha_canje = htmlspecialchars(strip_tags($this->fecha_canje));        
+        $this->cantidad = htmlspecialchars(strip_tags($this->cantidad));     
+        $this->descripcion = htmlspecialchars(strip_tags($this->descripcion));
 
 
         // Enlazar parámetros

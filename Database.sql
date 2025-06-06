@@ -16,6 +16,7 @@ CREATE TABLE empresas (
     direccion VARCHAR(255),
     telefono VARCHAR(8),
     correo_electronico VARCHAR(255),
+    porcentaje FLOAT,
     aprobado BOOLEAN NOT NULL
 );
 

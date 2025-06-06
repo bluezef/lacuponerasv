@@ -4,7 +4,7 @@ include_once '../../classes/Solicitudes.php';
 
 session_start();
 
-if (!isset($_SESSION['admin'])) {
+if (!isset($_SESSION['cliente'])) {
     header("Location: login.php");
     exit();
 }
@@ -12,30 +12,8 @@ if (!isset($_SESSION['admin'])) {
 $database = new Database();
 $db = $database->connect();
 
-$entrada = new Solicitud($db);
-$result = $entrada->read();
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $database = new Database();
-    $db = $database->connect();
-    $entrada = new Solicitud($db);
-
-    if(isset($_POST['aprobar'], $_POST['porcentaje'])){
-        if($entrada->aprobar($_POST['aprobar'], $_POST['porcentaje'])){
-            $success = "Solicitud aprobada con éxito";
-        } else{
-            $error = "Ocurrio un error al aprobar la solicitud";
-        }
-    }
-
-    if(isset($_POST['rechazar'])){
-        if($entrada->rechazar($_POST['rechazar'])){
-            $success = "Solicitud rechazada con éxito";
-        } else{
-            $error = "Ocurrio un error al rechazar la solicitud";
-        }
-    }
-}
+$cupones = new Cupones($db);
+$result = $cupones->read();
 ?>
 
 <!DOCTYPE html>
