@@ -53,8 +53,10 @@ CREATE TABLE compras (
     fecha DATE NOT NULL,
     factura_path VARCHAR(255),
     usuario VARCHAR(50) NOT NULL,
+    empresa VARCHAR(50) NOT NULL,
     FOREIGN KEY (id_oferta) REFERENCES ofertas(id),
-    FOREIGN KEY (usuario) REFERENCES clientes(username)
+    FOREIGN KEY (usuario) REFERENCES clientes(username),
+    FOREIGN KEY (empresa) REFERENCES empresas(username)
 );
 
 -- Usuario de prueba

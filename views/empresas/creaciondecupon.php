@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $cupon->usuario = $_SESSION['username'];
 
     if ($cupon->create()) {
-        header("Location: menu.php");
+        header("Location: cupones.php");
         exit();
     } else {
         $error = "Hubo un problema al crear la solicitud.";

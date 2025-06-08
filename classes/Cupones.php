@@ -85,7 +85,7 @@ class Cupon {
     }
 
     public function readall() {
-        $query = 'SELECT titulo, precio_regular, precio_oferta, fecha_inicio, fecha_fin, fecha_canje, cantidad, descripcion FROM ' . $this->table . ' WHERE estado = 1 AND CURRENT_DATE() BETWEEN fecha_inicio AND fecha_fin' ;
+        $query = 'SELECT id, titulo, precio_regular, precio_oferta, fecha_inicio, fecha_fin, fecha_canje, cantidad, descripcion FROM ' . $this->table . ' WHERE estado = 1 AND CURRENT_DATE() BETWEEN fecha_inicio AND fecha_fin' ;
 
         $stmt = $this->conn->prepare($query);
 
@@ -95,7 +95,7 @@ class Cupon {
     }
 
     public function read($id) {
-        $query = 'SELECT titulo, precio_regular, precio_oferta, fecha_inicio, fecha_fin, fecha_canje, cantidad, descripcion FROM ' . $this->table . ' WHERE estado = 1 AND CURRENT_DATE() BETWEEN fecha_inicio AND fecha_fin AND id = ' . $id;
+        $query = 'SELECT titulo, precio_regular, precio_oferta, fecha_inicio, fecha_fin, fecha_canje, cantidad, descripcion, nombre_empresa, usuario FROM ' . $this->table . ' JOIN empresas ON ofertas.usuario=empresas.username WHERE estado = 1 AND CURRENT_DATE() BETWEEN fecha_inicio AND fecha_fin AND ofertas.id = ' . $id;
 
         $stmt = $this->conn->prepare($query);
 
