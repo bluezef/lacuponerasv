@@ -9,6 +9,8 @@ class Solicitud {
     public $direccion;
     public $telefono;
     public $correo_electronico;
+    public $username;
+    public $password;
 
     public function __construct($db) {
         $this->conn = $db;
@@ -75,8 +77,18 @@ class Solicitud {
         return false;
     }
 
-    public function read() {
-        $query = 'SELECT id, nombre_empresa, nit_empresa, direccion, telefono, correo_electronico FROM ' . $this->table . ' WHERE aprobado = 0';
+    public function read($id) {
+        $query = 'SELECT id, nombre_empresa, nit_empresa, direccion, telefono, correo_electronico FROM ' . $this->table . ' WHERE aprobado = 0 AND id = ' . $id;
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    public function readall() {
+        $query = 'SELECT id, nombre_empresa FROM ' . $this->table . ' WHERE aprobado = 0';
 
         $stmt = $this->conn->prepare($query);
 

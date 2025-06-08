@@ -19,10 +19,8 @@ class Login {
             $_SESSION['admin'] = true;
             $_SESSION['username'] = $username;
             return true;
-            print_r("Logged in");
         } else{    
             return false;
-            print_r("Error");
         }
     }
 
@@ -36,10 +34,8 @@ class Login {
         
         if($stmt->rowCount() == 1) {
             return true;
-            print_r("Logged in");
         } else{    
             return false;
-            print_r("Error");
         }
     }
     

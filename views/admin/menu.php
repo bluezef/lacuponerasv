@@ -3,9 +3,6 @@
     
     session_start();
 
-    $database = new Database();
-    $db = $database->connect();
-
     if(!isset($_SESSION['admin'])) {
         header("Location: login.php");
         exit();

@@ -2,10 +2,6 @@
     require_once '../../classes/Database.php';
     
     session_start();
-
-    $database = new Database();
-    $db = $database->connect();
-
     if(!isset($_SESSION['empresa'])) {
         header("Location: login.php");
         exit();
@@ -33,6 +29,9 @@
         <div class="mb-3">
         <div class="mb-3">
             <a href="creaciondecupon.php"><button class="btn btn-primary">Crear un nuevo cupón</button></a>
+        </div>
+        <div class="mb-3">
+            <a href="cupones.php"><button class="btn btn-primary">Ver Cupones Creados</button></a>
         </div>
         <div class="mb-3">   
             <a href="?logout=true"><button class="btn btn-primary" type="submit">Cerrar Sesión</button></a>

@@ -10,7 +10,7 @@
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $login = new Login($db);
         if($login->authenticate($_POST['username'], $_POST['password'])) {
-            header("Location: menu.php");
+            header("Location: ofertas.php");
             exit();
         } else {
             $error = "Usuario o contraseña incorrectos.";
