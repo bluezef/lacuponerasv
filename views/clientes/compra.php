@@ -4,19 +4,29 @@ include_once '../../classes/Cupones.php';
 
 session_start();
 
+if (!isset($_SESSION['cliente'])) {
+    header("Location: login.php");
+    exit();
+}
+
 $database = new Database();
 $db = $database->connect();
 
-$cupones = new Cupon($db);
-$result = $cupones->readall();
-
-if (isset($_SESSION['username']) && $_SESSION['cliente']) {
-    $_SESSION['clientelogin'] = true;
-}
+$cupon = new Cupon($db);
+$result = $cupon->read($_SESSION['cupon']);
+$result = $result->fetch(PDO::FETCH_OBJ);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $_SESSION['cupon']=$_POST['comprar'];
-    header("Location: compra.php");
+    $database = new Database();
+    $db = $database->connect();
+
+    if(isset($_POST['compra'], $_POST['cantidad'])){
+        $_SESSION['total']=$_POST['cantidad']*$result->precio_oferta;
+        $_SESSION['cantidad']=$_POST['cantidad'];
+        $_SESSION['empresa']=$result->usuario;
+        header('Location:pago.php');
+        exit();
+    }
 }
 ?>
 
@@ -29,7 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>La Cuponera SV - Solicitudes de Registro</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
-</head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -68,44 +77,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </nav>
     </header>
     <main>
-    <div class="container mt-5">
-        <div class="d-flex justify-content-between mb-3">
-            <div class="mb-3">
-                <h1>Cupones Para Ti:</h1>
-            <?php if ($result->rowCount() > 0){ $i=0; ?>
-                        <?php while ($row = $result->fetch(PDO::FETCH_OBJ)): ?>
-                            <?php if($i=0):?>
-                                <div class ="row">
-                            <?php endif;?>
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5 class = "card-title"><?php echo $row->titulo; ?></h5>
-                                                <p class="card-text">
-                                                    <s>Precio Regular: $<?php echo $row->precio_regular; ?></s><br>
-                                                    <b>Precio Oferta: $<?php echo $row->precio_oferta; ?></b>
-                                                </p>
-                                                <form method="POST">
-                                                        <button class="btn btn-success btn-sm" id="comprar" name="comprar" value=<?php echo $row->id; ?>>Comprar Cupón</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php $i=$i+1; if($i=5):?>
-                            </div>
-                        <?php $i=0;endif;endwhile; ?>
+        <div class="container mt-5">
+        <div class="container d-flex align-items-center justify-content-center mt-5">
+            <h1>Compra de Cupón</h1>
+        </div>
+        <div class="mb-3">
+            <h3>Cupón: <?php echo $result->titulo; ?></h3>
+            <h3>Nombre de la Empresa:</h3> <p><?php echo $result->nombre_empresa; ?></p>
+            <h3>Precio Regular:</h3> <p><?php echo $result->precio_regular; ?></p>
+            <h3>Precio en Oferta:</h3> <p><?php echo $result->precio_oferta; ?></p>
+            <h3>Fecha Máxima de Compra:</h3> <p><?php echo $result->fecha_fin; ?></p>
+            <h3>Fecha Máxima de Canje:</h3> <p><?php echo $result->fecha_canje; ?></p>
+            <h3>Descripción:</h3> <p><?php echo $result->descripcion; ?></p>
+            <form method="POST">
+                <div class="mb-3">
+                    <label class="form-label" for="cantidad">Cantidad de Cupones:</label>
+                    <input class="form-control" type="number" id="cantidad" name="cantidad" max = 5 required>
                 </div>
-            <?php }else{  ?>
-                </h2>No hay ofertas disponibles por el momento</h2>
-            <?php } ?>
-            </div>
+                <div class="mb-3">
+                    <button class="btn btn-success btn-sm" id="compra" name="compra" value=<?php echo $_SESSION['cupon']; ?>>Finalizar Compra</button>
+                </div>
+            </form>
         </div>
     </div>
     </main>
-    <footer>
-
-    </footer>
 </body>
 </html>
