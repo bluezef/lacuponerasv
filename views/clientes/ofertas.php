@@ -81,6 +81,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="d-flex justify-content-between mb-3">
             <div class="mb-3">
                 <h1>Cupones Para Ti:</h1>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between mb-3">
+            <div class="mb-3">
             <?php if ($result->rowCount() > 0){ $i=0; ?>
                         <?php while ($row = $result->fetch(PDO::FETCH_OBJ)): ?>
                             <?php if($i=0):?>
