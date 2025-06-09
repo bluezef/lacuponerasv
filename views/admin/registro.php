@@ -22,8 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $database = new Database();
     $db = $database->connect(); 
     $signup = new Signup($db);
-    $signup->username = $_SESSION['username'];
-    $signup->password = $_SESSION['password'];
+    $signup->username = $_POST['username'];
+    $signup->password = $_POST['password'];
 
     if ($signup->create()) {
         $_SESSION ['success']='Usuario registrado correctamente, puede iniciar sesión';
