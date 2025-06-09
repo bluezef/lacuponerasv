@@ -71,6 +71,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </li>
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Reportes
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="gananciasporempresa.php">Ganancias Por Empresa</a></li>
+                    <li><a class="dropdown-item" href="ventasporempresa.php">Ventas Por Empresa</a></li>
+                </ul>
+                </li>
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <?php echo $_SESSION['username']?>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -84,35 +93,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </header>
     <main>
         <div class="container mt-5">
-        <div class="container d-flex align-items-center justify-content-center mt-5">
-            <h1>Solicitud de Registro</h1>
+            <div class="container d-flex align-items-center justify-content-center mt-5">
+                <h1>Solicitud de Registro</h1>
+            </div>
+            <div class="mb-3">
+            <?php if ($result->rowCount() > 0){ $result = $result->fetch(PDO::FETCH_OBJ); ?>
+                <h4>Número de Solicitud:</h4> <p><?php echo $result->id; ?></p>
+                <h4>Nombre de la Empresa:</h4> <p><?php echo $result->nombre_empresa; ?></p>
+                <h4>NIT de la Empresa:</h4> <p><?php echo $result->nit_empresa; ?></p>
+                <h4>Dirección de la Empresa:</h4> <p><?php echo $result->direccion; ?></p>
+                <h4>Teléfono de la Empresa:</h4> <p><?php echo $result->telefono; ?></p>
+                <h4>Correo Electrónico de la Empresa:</h4> <p><?php echo $result->correo_electronico; ?></p>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label" for="porcentaje">Porcentaje de ganancia:</label>
+                        <input class="form-control" type="number" step="0.5" value="15" id="porcentaje" name="porcentaje" required>
+                    </div>
+                    <div class="mb-3">
+                        <button class="btn btn-success btn-sm" id="aprobar" name="aprobar" value=<?php echo $result->id; ?>>Aprobar</button>
+                        <button class="btn btn-danger btn-sm" id="rechazar" name="rechazar" value=<?php echo $result->id; ?>>Rechazar</button>
+                    </div>
+                </form>
+            <?php }else{  ?>
+                <h3>No se encontró una solicitud con este Número</h3>
+            <?php } ?> 
+            </div>
         </div>
-        <div class="mb-3">
-        <?php if ($result->rowCount() > 0){ $result = $result->fetch(PDO::FETCH_OBJ); ?>
-            <h3>Número de Solicitud: <?php echo $result->id; ?></h3>
-            <h3>Nombre de la Empresa: <?php echo $result->nombre_empresa; ?></h3>
-            <h3>NIT de la Empresa: <?php echo $result->nit_empresa; ?></h3>
-            <h3>Dirección de la Empresa: <?php echo $result->direccion; ?></h3>
-            <h3>Teléfono de la Empresa: <?php echo $result->telefono; ?></h3>
-            <h3>Correo Electrónico de la Empresa: <?php echo $result->correo_electronico; ?></h3>
-            <form method="POST">
-                <div class="mb-3">
-                    <label class="form-label" for="porcentaje">Porcentaje de ganancia:</label>
-                    <input class="form-control" type="number" step="0.5" value="15" id="porcentaje" name="porcentaje" required>
-                </div>
-                <div class="mb-3">
-                    <button class="btn btn-success btn-sm" id="aprobar" name="aprobar" value=<?php echo $result->id; ?>>Aprobar</button>
-                    <button class="btn btn-danger btn-sm" id="rechazar" name="rechazar" value=<?php echo $result->id; ?>>Rechazar</button>
-                </div>
-            </form>
-        <?php }else{  ?>
-            <h3>No se encontró una solicitud con este Número</h3>
-        <?php } ?> 
-        </div>
-        <div class="mb-3">
-            <a href="solicitudes.php"><button class="btn btn-primary">Regresar a Solicitudes de Registro</button></a>
-        </div>
-    </div>
     </main>
 </body>
 </html>

@@ -30,7 +30,13 @@
 <div class="container d-flex align-items-center justify-content-center mt-5">
         <div class="mb-3">
             <h2>Inicio de Sesión de Administradores</h2>
-        <div>  
+        <div>
+        <?php if (isset($_SESSION['success'])): ?>
+            <div class="alert alert-success"><?php echo $_SESSION['success']; ?></div>
+        <?php endif; ?>
+        <?php if (isset($_SESSION['error'])): ?>
+            <div class="alert alert-danger"><?php echo $_SESSION['error']; ?></div>
+        <?php endif; ?>
         <?php if (isset($error)):?>
         <div class="alert alert-danger"><?php echo "<p>$error</p>"; ?></div>
         <?php endif;?>

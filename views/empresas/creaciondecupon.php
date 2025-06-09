@@ -93,11 +93,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="regular">Precio Regular:</label>
-                    <input class="form-control" type="number" id="regular" name="regular" required>
+                    <input class="form-control" type="number" step= "0.01" id="regular" name="regular" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="oferta">Precio Oferta:</label>
-                    <input class="form-control" type="number" id="oferta" name="oferta" required>
+                    <input class="form-control" type="number" step= "0.01" id="oferta" name="oferta" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="inicio">Fecha de Inicio:</label>

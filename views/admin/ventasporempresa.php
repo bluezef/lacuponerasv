@@ -4,7 +4,7 @@ include_once '../../classes/Compras.php';
 
 session_start();
 
-if (!isset($_SESSION['cliente'])) {
+if (!isset($_SESSION['admin'])) {
     header("Location: login.php");
     exit();
 }
@@ -14,11 +14,12 @@ if(isset($_GET['logout'])) {
     header("Location: login.php");
     exit();
 }
+
 $database = new Database();
 $db = $database->connect();
 
 $compras = new Compra($db);
-$result = $compras->readallfromcliente($_SESSION['username']);
+$result = $compras->porempresa();
 ?>
 
 <!DOCTYPE html>
@@ -42,28 +43,29 @@ $result = $compras->readallfromcliente($_SESSION['username']);
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
-                <?php if($_SESSION['clientelogin']):?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="pedidos.php">Mis Pedidos</a>
-                    </li>
-                <?php endif;?>
                 <li class="nav-item">
-                    <a class="nav-link" href="ofertas.php">Ofertas</a>
+                <a class="nav-link" href="registro.php">Registro de Administradores</a>
                 </li>
-                <?php if($_SESSION['clientelogin']){?>
-                    <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <?php echo $_SESSION['username']?>
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="?logout=true">Cerrar Sesión</a></li>
-                    </ul>
-                    </li>
-                <?php }else{?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.php">Iniciar Sesión</a>
-                    </li>
-                <?php }?>
+                <li class="nav-item">
+                <a class="nav-link" href="solicitudes.php">Revisión de Solicitudes</a>
+                </li>
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Reportes
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="gananciasporempresa.php">Ganancias Por Empresa</a></li>
+                    <li><a class="dropdown-item" href="ventasporempresa.php">Ventas Por Empresa</a></li>
+                </ul>
+                </li>
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <?php echo $_SESSION['username']?>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="?logout=true">Cerrar Sesión</a></li>
+                </ul>
+                </li>
             </ul>
             </div>
         </div>
@@ -72,33 +74,35 @@ $result = $compras->readallfromcliente($_SESSION['username']);
     <main>
         <div class="container mt-5">
             <div class="d-flex justify-content-between mb-3">
-                <h1>Mis Pedidos</h1>
+                <h1>Ganancias Por Empresa</h1>
             </div>
-            <?php if (isset($_SESSION['success'])): ?>
-                <div class="alert alert-success"><?php echo $_SESSION['success']; ?></div>
-            <?php endif; ?>
-            <?php if (isset($_SESSION['error'])): ?>
-                <div class="alert alert-danger"><?php echo $_SESSION['error']; ?></div>
-            <?php endif; ?>
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Cupón Comprado</th>
-                        <th>Monto Total</th>
-                        <th>Fecha de Compra</th>
+                        <th>Nombre de Empresa</th>
+                        <th>Ventas por Empresa</th>
+                        <th>Total de Ventas</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if ($result->rowCount() > 0){ ?>
+                    <?php if ($result->rowCount() > 0){ 
+                        $ventasunitarias_total=0;
+                        $montoventas_total=0;?>
                         <?php while ($row = $result->fetch(PDO::FETCH_OBJ)): ?>
                             <tr>
-                                <td><?php echo $row->id; ?></td>
-                                <td><?php echo $row->titulo; ?></td>
-                                <td><?php echo $row->monto; ?></td>
-                                <td><?php echo $row->fecha; ?></td>
+                                <td><?php echo $row->nombre_empresa; ?></td>
+                                <td><?php echo $row->ventas; ?></td>
+                                <td>$<?php echo $row->montoventas; ?></td>
                             </tr>
-                        <?php endwhile; ?>
+                        <?php 
+                        $ventasunitarias_total+= $row->ventas;
+                        $montoventas_total+=$row->montoventas; 
+                        endwhile; ?>
+                            <tr>
+                                <td><b>Totales:</b></td>
+                                <td><b><?php echo $ventasunitarias_total; ?></b></td>
+                                <td><b>$<?php echo $montoventas_total; ?></b></td>
+                            </tr>
                     <?php }else{  ?>
                         <tr>
                             <td colspan="4" class="text-center">No hay entradas registradas</td>

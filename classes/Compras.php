@@ -55,7 +55,7 @@ class Compra {
     }
 
     public function readallfromcliente($usuario) {
-        $query = 'SELECT * FROM ' . $this->table . ' WHERE usuario = :usuario';
+        $query = 'SELECT compras.id AS id, ofertas.titulo AS titulo, compras.monto AS monto, compras.fecha AS fecha, compras.factura_path AS factura_path  FROM ' . $this->table . ' LEFT JOIN ofertas ON compras.id_oferta=ofertas.id WHERE compras.usuario = :usuario';
 
         $stmt = $this->conn->prepare($query);
 
@@ -65,5 +65,16 @@ class Compra {
 
         return $stmt;
     }
+
+    public function porempresa() {
+        $query = 'SELECT nombre_empresa, empresas.porcentaje AS porcentaje, COUNT(compras.id) AS ventas, SUM(monto) AS montoventas FROM ' . $this->table . ' JOIN empresas ON compras.empresa=empresas.username GROUP BY nombre_empresa, porcentaje';
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->execute();
+
+        return $stmt;
+    }
+
 }
 ?>

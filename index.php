@@ -1,3 +1,3 @@
 <?php 
-header("Location: views/admin/login.php");
+header("Location: views/clientes/ofertas.php");
 ?>

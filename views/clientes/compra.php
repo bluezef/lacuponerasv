@@ -83,16 +83,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <div class="mb-3">
             <h3>Cupón: <?php echo $result->titulo; ?></h3>
-            <h3>Nombre de la Empresa:</h3> <p><?php echo $result->nombre_empresa; ?></p>
-            <h3>Precio Regular:</h3> <p><?php echo $result->precio_regular; ?></p>
-            <h3>Precio en Oferta:</h3> <p><?php echo $result->precio_oferta; ?></p>
-            <h3>Fecha Máxima de Compra:</h3> <p><?php echo $result->fecha_fin; ?></p>
-            <h3>Fecha Máxima de Canje:</h3> <p><?php echo $result->fecha_canje; ?></p>
-            <h3>Descripción:</h3> <p><?php echo $result->descripcion; ?></p>
+            <h4>Nombre de la Empresa:</h4> <p><?php echo $result->nombre_empresa; ?></p>
+            <h4>Precio Regular: </h4> <p>$<?php echo $result->precio_regular; ?></p>
+            <h4>Precio en Oferta: </h4> <p>$<?php echo $result->precio_oferta; ?></p>
+            <h4>Fecha Máxima de Compra:</h4> <p><?php echo $result->fecha_fin; ?></p>
+            <h4>Fecha Máxima de Canje:</h4> <p><?php echo $result->fecha_canje; ?></p>
+            <h4>Cantidad en Stock:</h4> <p><?php echo $result->cantidad; ?></p>
+            <h4>Descripción:</h4> <p><?php echo $result->descripcion; ?></p>
             <form method="POST">
                 <div class="mb-3">
                     <label class="form-label" for="cantidad">Cantidad de Cupones:</label>
-                    <input class="form-control" type="number" id="cantidad" name="cantidad" max = 5 required>
+                    <input class="form-control" type="number" id="cantidad" name="cantidad" min = 1 max = <?php if ($result->cantidad < 5){echo $result->cantidad;}else{echo 5;}?> required>
                 </div>
                 <div class="mb-3">
                     <button class="btn btn-success btn-sm" id="compra" name="compra" value=<?php echo $_SESSION['cupon']; ?>>Finalizar Compra</button>

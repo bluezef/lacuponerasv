@@ -10,8 +10,17 @@ $db = $database->connect();
 $cupones = new Cupon($db);
 $result = $cupones->readall();
 
+unset($_SESSION['success']);
+unset($_SESSION['error']);
+
 if (isset($_SESSION['username']) && $_SESSION['cliente']) {
     $_SESSION['clientelogin'] = true;
+}
+
+if(isset($_GET['logout'])) {
+    session_destroy();
+    header("Location: login.php");
+    exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

@@ -71,7 +71,7 @@ class Cupon {
     }
 
     public function compra($id, $cantidad){
-        $query = 'UPDATE ' . $this->table . ' SET cantidad = cantidad - ' . $cantidad . ' WHERE id = '. $id;
+        $query = 'UPDATE ' . $this->table . ' SET cantidad = (cantidad - ' . $cantidad . ') WHERE id = '. $id;
         
         $stmt = $this->conn->prepare($query);
 
@@ -85,7 +85,7 @@ class Cupon {
     }
 
     public function readall() {
-        $query = 'SELECT id, titulo, precio_regular, precio_oferta, fecha_inicio, fecha_fin, fecha_canje, cantidad, descripcion FROM ' . $this->table . ' WHERE estado = 1 AND CURRENT_DATE() BETWEEN fecha_inicio AND fecha_fin' ;
+        $query = 'SELECT id, titulo, precio_regular, precio_oferta, fecha_inicio, fecha_fin, fecha_canje, cantidad, descripcion FROM ' . $this->table . ' WHERE estado = 1 AND CURRENT_DATE() BETWEEN fecha_inicio AND fecha_fin AND cantidad>0' ;
 
         $stmt = $this->conn->prepare($query);
 
