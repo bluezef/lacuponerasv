@@ -1,44 +1,44 @@
 LaCuponeraSV - Instrucciones de Uso (Windows con XAMPP)
+
+Prerrequisitos:
+Sistema Operativo Windows
+XAMPP Instalado
+Git (opcional, para clonar repositorio)
+
+Pasos para la instalación:
+
+1 - Instala y configura XAMPP
+
+  Descarga e instala XAMPP del sitio web oficial.
   
-  Prerrequisitos:
-  Sistema Operativo Windows
-  XAMPP Instalado
-  Git (opcional, para clonar repositorio)
+  Lanza el Panel de Control de XAMPP.
   
-  Pasos para la instalación:
+  Inicia los servicios de Apache y MySQL.
   
-  1 - Instala y configura XAMPP
+2 - Configura el proyecto:
+
+  Opcion A: Clonar del repositorio
   
-    Descarga e instala XAMPP del sitio web oficial.
+    git clone https://github.com/bluezef/lacuponerasv
     
-    Lanza el Panel de Control de XAMPP.
+    cd LaCuponeraSV
     
-    Inicia los servicios de Apache y MySQL.
-    
-  2 - Configura el proyecto:
+  Opcion B: Descargar el ZIP
   
-    Opcion A: Clonar del repositorio
+    Descarga el ZIP
     
-      git clone https://github.com/bluezef/lacuponerasv
-      
-      cd LaCuponeraSV
-      
-    Opcion B: Descargar el ZIP
-    
-      Descarga el ZIP
-      
-      Extraelo en el folder htdocs dentro del folder de XAMPP
-    
-  3 - Configura la Base de Datos:
+    Extraelo en el folder htdocs dentro del folder de XAMPP
   
-    Abre phpMyAdmin en tu localhost http://localhost/phpmyadmin
-    
-    Crea una nueva base de datos llamada cuponera
-    
-    Usa el archivo SQL incluido en la descarga Database.sql
-    
-  4 - Ejecuta la aplicación:
+3 - Configura la Base de Datos:
+
+  Abre phpMyAdmin en tu localhost http://localhost/phpmyadmin
   
-    Asegúrate que los servicios Apache y MySQL de XAMPP estén activos.
-    
-    Dirígete a http://localhost/LaCuponeraSV
+  Crea una nueva base de datos llamada cuponera
+  
+  Usa el archivo SQL incluido en la descarga Database.sql
+  
+4 - Ejecuta la aplicación:
+
+  Asegúrate que los servicios Apache y MySQL de XAMPP estén activos.
+  
+  Dirígete a http://localhost/LaCuponeraSV
