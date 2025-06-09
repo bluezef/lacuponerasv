@@ -12,7 +12,7 @@ class Signup {
     }
 
     public function create(){
-        $query = 'INSERT INTO ' . $this->table . ' (username, password) VALUES (:username, :password)';
+        $query = 'INSERT INTO ' . $this->table . ' (username, password) VALUES (:username, SHA1(:password))';
         
         $stmt = $this->conn->prepare($query);
 

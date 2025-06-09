@@ -26,12 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $signup->password = $_POST['password'];
 
     if ($signup->create()) {
-        $_SESSION ['success']='Usuario registrado correctamente, puede iniciar sesión';
+        $_SESSION['success']='Usuario registrado correctamente, puede iniciar sesión';
         header("Location: login.php");
         exit();
     } else {
-        $_SESSION ['error']='Hubo un error al registrar al usuario';
-        header('Location:registro.php');
+        $_SESSION['error']='Hubo un error al registrar al usuario';
+        header("Location: login.php");
     }
 }
 ?>
@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <?php if (isset($error)):?>
             <div class="alert alert-danger"><?php echo "<p>$error</p>"; ?></div>
             <?php endif;?>
-            <form method="POST" action="signup.php">
+            <form method="POST">
                 <div class="mb-3">
                     <label class="form-label" for="username">Usuario:</label>
                     <input class="form-control" type="text" id="username" name="username" required>
